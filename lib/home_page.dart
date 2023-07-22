@@ -51,15 +51,7 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                   ),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return const CharacterSheetPage();
-                        },
-                      ),
-                    );
-                  },
+                  onPressed: () {},
                   child: const Text('Places on the map'),
                 ),
               ),
@@ -103,6 +95,28 @@ class HomePage extends StatelessWidget {
                   ),
                   onPressed: () {},
                   child: const Text('Enemies'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size(200.0, 40),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const CharacterSheetPage();
+                        },
+                      ),
+                    );
+                  },
+                  child: const Text('Character Sheet'),
                 ),
               ),
             ],

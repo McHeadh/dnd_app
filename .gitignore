@@ -9,6 +9,7 @@
 .history
 .svn/
 migrate_working_dir/
+.env
 
 # IntelliJ related
 *.iml
@@ -30,7 +31,19 @@ migrate_working_dir/
 .packages
 .pub-cache/
 .pub/
-/build/
+build/e3f1931bc9fda52f249735e00f03a9ec
+build/flutter_pdfview
+build/kotlin
+build/path_provider_android
+build/ade00fc64fa695e0daed02c1105f6d67.cache.dill.track.dill
+build/app/generated
+build/app/intermediates
+build/app/kotlin
+build/app/snapshot
+build/app/tmp
+build/app/outputs/apk
+build/app/outputs/logs
+build/app/outputs/flutter-apk/app-debug.apk.sha1
 
 # Symbolication related
 app.*.symbols

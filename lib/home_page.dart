@@ -1,4 +1,6 @@
 import 'package:dnd_app/character_sheet_page.dart';
+import 'package:dnd_app/characters_page.dart';
+import 'package:dnd_app/items_page.dart';
 import 'package:dnd_app/realm_map_page.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +67,15 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const CharactersPage();
+                        },
+                      ),
+                    );
+                  },
                   child: const Text('Characters'),
                 ),
               ),
@@ -79,7 +89,15 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const ItemsPage();
+                        },
+                      ),
+                    );
+                  },
                   child: const Text('Items'),
                 ),
               ),

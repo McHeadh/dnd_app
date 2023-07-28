@@ -6,6 +6,7 @@ class CharactersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.brown,
       appBar: AppBar(
         title: const Text('Characters'),
         backgroundColor: Colors.green,

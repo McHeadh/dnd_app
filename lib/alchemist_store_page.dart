@@ -5,14 +5,14 @@ import 'package:http/http.dart' as http;
 
 import 'item_page.dart';
 
-class GeneralStorePage extends StatefulWidget {
-  const GeneralStorePage({super.key});
+class AlchemistStorePage extends StatefulWidget {
+  const AlchemistStorePage({super.key});
 
   @override
-  State<GeneralStorePage> createState() => _GeneralStorePageState();
+  State<AlchemistStorePage> createState() => _AlchemistStorePageState();
 }
 
-class _GeneralStorePageState extends State<GeneralStorePage> {
+class _AlchemistStorePageState extends State<AlchemistStorePage> {
   List<Map<String, dynamic>> items = [];
   bool isLoading = true;
 
@@ -25,7 +25,7 @@ class _GeneralStorePageState extends State<GeneralStorePage> {
   Future<void> fetchItems() async {
     String? baseApiUrl = dotenv.env['API_URL'];
     final response =
-        await http.get(Uri.parse('$baseApiUrl/items/GeneralStore/Names'));
+        await http.get(Uri.parse('$baseApiUrl/items/AlchemistStore/Names'));
 
     if (response.statusCode == 200) {
       if (mounted) {
@@ -44,7 +44,7 @@ class _GeneralStorePageState extends State<GeneralStorePage> {
     return Scaffold(
       backgroundColor: Colors.brown,
       appBar: AppBar(
-        title: const Text('General store items'),
+        title: const Text('Alchemist store items'),
         backgroundColor: Colors.green,
       ),
       body: isLoading // Check if data is still loading

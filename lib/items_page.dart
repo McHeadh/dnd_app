@@ -1,4 +1,6 @@
+import 'package:dnd_app/alchemist_store_page.dart';
 import 'package:dnd_app/general_store_page.dart';
+import 'package:dnd_app/uncategorized_items_page.dart';
 import 'package:flutter/material.dart';
 
 class ItemsPage extends StatelessWidget {
@@ -46,7 +48,7 @@ class ItemsPage extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return const GeneralStorePage();
+                        return const AlchemistStorePage();
                       },
                     ),
                   );
@@ -69,7 +71,7 @@ class ItemsPage extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return const GeneralStorePage();
+                        return const UncategorizedItemsPage();
                       },
                     ),
                   );

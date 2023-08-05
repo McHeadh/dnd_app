@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'home_page.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   await dotenv.load();
-  runApp(const MyApp()); //dupaa
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo', 
+      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
@@ -98,9 +99,51 @@ class LoginPage extends StatelessWidget {
               ),
               child: const Text('Continue without logging in'),
             ),
+            Padding(
+              padding: const EdgeInsets.all(48.0),
+              child: ElevatedButton(
+                onPressed: () {
+                 /* readVersionFile().then((version) {
+                    print(version); // The actual version will be printed here
+                    // You can use the version in any way you need.
+                  }).catchError((error) {
+                    print('Error reading version: $error');
+                  });*/
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.black,
+                  minimumSize: const Size(200, 40),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)),
+                ),
+                child: const Text('Check for updates'),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
+Future<String> readVersionFile() async {
+  String contents;
+  try {
+    contents = await rootBundle.loadString('.version');
+  } catch (error) {
+    contents = ''; // Handle the case when the version file cannot be read
+  }
+  return contents;
+}
+
+/*Future<String> getGithubVersion() async {
+  String? githubVersionURL = dotenv.env['API_URL'];
+  try {
+    contents = await rootBundle.loadString('.version');
+  } catch (error) {
+    contents = ''; // Handle the case when the version file cannot be read
+  }
+  return contents;
+}
+*/

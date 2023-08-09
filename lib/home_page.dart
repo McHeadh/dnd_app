@@ -142,43 +142,47 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Column(
+        child: ListView(
           children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 20.0),
-              child: Text(
-                'Welcome',
-                style: TextStyle(
-                  fontSize: 45,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+            Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    'Welcome',
+                    style: TextStyle(
+                      fontSize: 45,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 10.0),
-              child: Text(
-                'Welcome to the Wiki for our DnD campaign! This is a place where you can find information about the world, characters, items, and more. Dive in and explore the adventure that awaits!',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                const Padding(
+                  padding: EdgeInsets.only(top: 10.0),
+                  child: Text(
+                    'Welcome to the Wiki for our DnD campaign! This is a place where you can find information about the world, characters, items, and more. Dive in and explore the adventure that awaits!',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                textAlign: TextAlign.center,
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 25.0),
+                  child: Container(
+                    width: 370,
+                    constraints: const BoxConstraints(minHeight: 300),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2), color: Colors.white70),
+                    alignment: AlignmentDirectional.topCenter,
+                    child: const Text(
+                        'This is where latest news are going to show up.'),
+                  ),
+                )
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25.0),
-              child: Container(
-                width: 370,
-                constraints: const BoxConstraints(minHeight: 300),
-                decoration: BoxDecoration(
-                    border: Border.all(width: 2), color: Colors.white70),
-                alignment: AlignmentDirectional.topCenter,
-                child: const Text(
-                    'This is where latest news are going to show up.'),
-              ),
-            )
           ],
         ),
       ),

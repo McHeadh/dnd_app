@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'home_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:open_file/open_file.dart';
@@ -40,6 +41,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool isUpdating = false;
+
   @override
   void initState() {
     super.initState();
@@ -131,30 +134,66 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> showUpdateAlertDialog(BuildContext context) async {
+    bool hasConfirmedUpdate = false;
+
     await showDialog(
       context: context,
+      barrierDismissible: false, // Prevent dialog dismissal on outside tap
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('New Update Available'),
-          content: const Text(
-              'There is a new version of the app available. Do you want to update now?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Close the dialog without updating
-              },
-              child: const Text('No'),
-            ),
-            TextButton(
-              onPressed: () {
-                // Implement the update process here, such as redirecting to app store
-                // or performing an in-app update using a package like `flutter_inappupdate`.
-                // For the sake of this example, we will just close the dialog.
-                updateApp();
-              },
-              child: const Text('Yes'),
-            ),
-          ],
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text('New Update Available'),
+              content: !hasConfirmedUpdate
+                  ? const Text(
+                      'There is a new version of the app available. Do you want to update now?')
+                  : isUpdating
+                      ? const Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('Downloading...'),
+                            SizedBox(height: 16),
+                            CircularProgressIndicator(),
+                          ],
+                        )
+                      : const Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(height: 16),
+                            Text('Download Completed'),
+                          ],
+                        ),
+              actions: [
+                if (!isUpdating &&
+                    !hasConfirmedUpdate) // Show buttons only when not updating
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context); // Close the dialog
+                    },
+                    child: const Text('No'),
+                  ),
+                if (!hasConfirmedUpdate &&
+                    !isUpdating) // Show button only before update
+                  TextButton(
+                    onPressed: () async {
+                      setState(() {
+                        hasConfirmedUpdate = true;
+                        isUpdating =
+                            true; // Start showing the loading indicator
+                      });
+
+                      // Start the update process
+                      await updateApp();
+
+                      setState(() {
+                        isUpdating = false;
+                      });
+                    },
+                    child: const Text('Yes'),
+                  ),
+              ],
+            );
+          },
         );
       },
     );
@@ -185,7 +224,7 @@ Future<String> getGithubVersion() async {
     }
   } catch (e) {
     // Handle any network-related errors
-    print('Error fetching GitHub version: $e');
+    //print('Error fetching GitHub version: $e');
     throw Exception('Failed to fetch GitHub version');
   }
 
@@ -197,10 +236,10 @@ Future<bool> checkForUpdates() async {
   String githubVersion = await getGithubVersion();
 
   if (localVersion.isNotEmpty && localVersion != githubVersion) {
-    print('There is new version avaliable');
+    //print('There is new version avaliable');
     return true;
   } else {
-    print('Current version is up to date');
+    //print('Current version is up to date');
     return false;
   }
 }
@@ -209,19 +248,30 @@ Future<void> updateApp() async {
   // Replace "your_update_url" with the URL where the updated APK is hosted.
   String? githubApkURL = dotenv.env['GITHUB_APK_URL'];
 
-  // Download the updated APK to a temporary directory
-  final tempDir = await getTemporaryDirectory();
-  final updatedApkPath = "${tempDir.path}/app-debug.apk";
+  //var status = await Permission.manageExternalStorage.request();
 
-  final response = await http.get(Uri.parse(githubApkURL!));
-  if (response.statusCode == 200) {
-    
-    final file = File(updatedApkPath);
-    await file.writeAsBytes(response.bodyBytes);
-    print('Downloaded newer version');
+  if (await Permission.requestInstallPackages.request().isGranted) {
+    // Download the updated APK to a temporary directory
+    final tempDir = await getTemporaryDirectory();
+    final updatedApkPath = "${tempDir.path}/app-debug.apk";
 
-    // Install the updated APK
-    final success = await OpenFile.open(updatedApkPath);
+    print('Downloading new version...');
+    final response = await http.get(Uri.parse(githubApkURL!));
+    if (response.statusCode == 200) {
+      print('Downloaded new version');
+      final file = File(updatedApkPath);
+      await file.writeAsBytes(response.bodyBytes);
+      print('Wrote new version to file format');
+
+      // Install the updated APK
+      //final success = await OpenFile.open(updatedApkPath);
+      print('Opening file in the path: ${file.path}');
+      final success = await OpenFile.open(file.path);
+      print(success.message);
+    } else {
+      print('Failed to download new version');
+    }
+  } else {
+    print('No permission granted');
   }
-
 }

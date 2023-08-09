@@ -44,6 +44,8 @@ build/app/tmp
 build/app/outputs/apk
 build/app/outputs/logs
 build/app/outputs/flutter-apk/app-debug.apk.sha1
+build/open_file
+build/permission_handler_android
 
 # Symbolication related
 app.*.symbols

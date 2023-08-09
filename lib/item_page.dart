@@ -57,131 +57,127 @@ class _ItemPageState extends State<ItemPage> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Column(
+          : ListView(
               children: [
-                if (_imageBytes.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 24),
-                    child: Center(
-                      child: SizedBox(
-                        width: 200,
-                        child: Image.memory(_imageBytes),
+                Column(
+                  children: [
+                    if (_imageBytes.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 24, bottom: 24),
+                        child: Center(
+                          child: SizedBox(
+                            width: 200,
+                            child: Image.memory(_imageBytes),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 24.0),
-                    child: ListView(
-                      children: [
-                        if (item?.getDescription != null)
-                          ExpansionTile(
-                            collapsedBackgroundColor: Colors.green,
-                            backgroundColor: Colors.greenAccent,
-                            title: const Text(
-                              'Description',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                                color: Colors.white,
-                              ),
-                            ),
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  item?.getDescription ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ],
+                    if (item?.getDescription != null &&
+                        item!.getDescription!.isNotEmpty)
+                      ExpansionTile(
+                        collapsedBackgroundColor: Colors.green,
+                        backgroundColor: Colors.greenAccent,
+                        title: const Text(
+                          'Description',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Colors.white,
                           ),
-                        if (item?.getEffect != null)
+                        ),
+                        children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 24.0),
-                            child: ExpansionTile(
-                              collapsedBackgroundColor: Colors.green,
-                              backgroundColor: Colors.greenAccent,
-                              title: const Text(
-                                'Effect',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24,
-                                  color: Colors.white,
-                                ),
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              item?.getDescription ?? '',
+                              style: const TextStyle(
+                                fontSize: 16,
                               ),
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    item?.getEffect ?? '',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ],
                             ),
                           ),
-                        if (item?.getRarity != null)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 24.0),
-                            child: ExpansionTile(
-                              collapsedBackgroundColor: Colors.green,
-                              backgroundColor: Colors.greenAccent,
-                              title: const Text(
-                                'Rarity',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    item?.getRarity ?? '',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                        ],
+                      ),
+                    if (item?.getEffect != null && item!.getEffect!.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 24.0),
+                        child: ExpansionTile(
+                          collapsedBackgroundColor: Colors.green,
+                          backgroundColor: Colors.greenAccent,
+                          title: const Text(
+                            'Effect',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: Colors.white,
                             ),
                           ),
-                        if (item?.getPrice != null)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 24.0),
-                            child: ExpansionTile(
-                              collapsedBackgroundColor: Colors.green,
-                              backgroundColor: Colors.greenAccent,
-                              title: const Text(
-                                'Price',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24,
-                                  color: Colors.white,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                item?.getEffect ?? '',
+                                style: const TextStyle(
+                                  fontSize: 16,
                                 ),
                               ),
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    item!.getPrice.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    if (item?.getRarity != null && item!.getRarity!.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 24.0),
+                        child: ExpansionTile(
+                          collapsedBackgroundColor: Colors.green,
+                          backgroundColor: Colors.greenAccent,
+                          title: const Text(
+                            'Rarity',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: Colors.white,
                             ),
                           ),
-                      ],
-                    ),
-                  ),
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                item?.getRarity ?? '',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    if (item?.getPrice != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 24.0),
+                        child: ExpansionTile(
+                          collapsedBackgroundColor: Colors.green,
+                          backgroundColor: Colors.greenAccent,
+                          title: const Text(
+                            'Price',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: Colors.white,
+                            ),
+                          ),
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                item!.getPrice.toString(),
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
                 ),
               ],
             ),

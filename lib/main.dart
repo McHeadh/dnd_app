@@ -69,14 +69,14 @@ class _LoginPageState extends State<LoginPage> {
               'Welcome to DnD Helper',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 35,
+                fontSize: 25,
               ),
             ),
             const Text(
               'Work in progress',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 35,
+                fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
             ),

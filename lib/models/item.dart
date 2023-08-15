@@ -7,6 +7,7 @@ class Item {
   String? rarity;
   int? price;
   String? shopType;
+  bool isVisible;
 
   Item({
     required this.itemID,
@@ -17,6 +18,7 @@ class Item {
     this.rarity,
     this.price,
     this.shopType,
+    required this.isVisible,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class Item {
       rarity: json['rarity'],
       price: json['price'],
       shopType: json['shopType'],
+      isVisible: json['isVisible'],
     );
   }
 
@@ -42,6 +45,7 @@ class Item {
   String? get getRarity => rarity;
   int? get getPrice => price;
   String? get getShopType => shopType;
+  bool get getIsVisible => isVisible;
 }
 
 List<String>? _convertToImageList(dynamic imageData) {

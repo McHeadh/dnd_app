@@ -63,29 +63,33 @@ class _GeneralStorePageState extends State<GeneralStorePage> {
                         itemCount: items.length,
                         itemBuilder: (context, index) {
                           final item = items[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 14.0),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ItemPage(item['itemID']),
+                          print(item);
+                          if (item['isVisible']) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 14.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ItemPage(item['itemID']),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                  foregroundColor: Colors.black,
+                                  minimumSize: const Size(300, 40),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                                foregroundColor: Colors.black,
-                                minimumSize: const Size(300, 40),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
                                 ),
+                                child: Text(item['name']),
                               ),
-                              child: Text(item['name']),
-                            ),
-                          );
+                            );
+                          }
+                          return Container();
                         },
                       ),
                     ),

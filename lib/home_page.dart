@@ -1,7 +1,9 @@
 import 'package:dnd_app/character_sheet_page.dart';
-import 'package:dnd_app/characters_page.dart';
+import 'package:dnd_app/characters_category_page.dart';
+import 'package:dnd_app/enemies_category_page.dart';
 import 'package:dnd_app/items_page.dart';
 import 'package:dnd_app/realm_map_page.dart';
+import 'package:dnd_app/regions_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -55,7 +57,15 @@ class HomePage extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return const RegionsPage();
+                            },
+                          ),
+                        );
+                      },
                       child: const Text('Places on the map'),
                     ),
                   ),
@@ -73,7 +83,7 @@ class HomePage extends StatelessWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (BuildContext context) {
-                              return const CharactersPage();
+                              return const CharactersCategoryPage();
                             },
                           ),
                         );
@@ -113,7 +123,15 @@ class HomePage extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return const EnemyCategoryPage();
+                            },
+                          ),
+                        );
+                      },
                       child: const Text('Enemies'),
                     ),
                   ),

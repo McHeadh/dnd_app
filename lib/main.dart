@@ -210,22 +210,22 @@ Future<String> readVersionFile() async {
   return contents;
 }
 
-Future<String> getGithubVersion() async {
-  String? githubVersionURL = dotenv.env['GITHUB_VERSION_URL'];
+Future<String> getServerVersion() async {
+  String? baseApiUrl = dotenv.env['API_URL'];
   String version = '';
 
   try {
-    final response = await http.get(Uri.parse('$githubVersionURL'));
+    final response = await http.get(Uri.parse('$baseApiUrl/installers/AndroidApp/version'));
 
     if (response.statusCode == 200) {
       version = response.body.trim();
     } else {
-      throw Exception('Failed to fetch GitHub version');
+      throw Exception('Failed to fetch server version');
     }
   } catch (e) {
     // Handle any network-related errors
     //print('Error fetching GitHub version: $e');
-    throw Exception('Failed to fetch GitHub version');
+    throw Exception('Failed to fetch server version');
   }
 
   return version;
@@ -233,7 +233,7 @@ Future<String> getGithubVersion() async {
 
 Future<bool> checkForUpdates() async {
   String localVersion = await readVersionFile();
-  String githubVersion = await getGithubVersion();
+  String githubVersion = await getServerVersion();
 
   if (localVersion.isNotEmpty && localVersion != githubVersion) {
     //print('There is new version avaliable');
@@ -246,7 +246,8 @@ Future<bool> checkForUpdates() async {
 
 Future<void> updateApp() async {
   // Replace "your_update_url" with the URL where the updated APK is hosted.
-  String? githubApkURL = dotenv.env['GITHUB_APK_URL'];
+  //String? githubApkURL = dotenv.env['GITHUB_APK_URL'];
+  String? baseApiUrl = dotenv.env['API_URL'];
 
   //var status = await Permission.manageExternalStorage.request();
 
@@ -256,7 +257,7 @@ Future<void> updateApp() async {
     final updatedApkPath = "${tempDir.path}/app-debug.apk";
 
     print('Downloading new version...');
-    final response = await http.get(Uri.parse(githubApkURL!));
+    final response = await http.get(Uri.parse('$baseApiUrl/installers/AndroidApp/download'));
     if (response.statusCode == 200) {
       print('Downloaded new version');
       final file = File(updatedApkPath);
